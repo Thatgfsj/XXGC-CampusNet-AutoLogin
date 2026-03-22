@@ -1,9 +1,3 @@
-if ($PSVersionTable.PSVersion.Major -lt 5 -or ($PSVersionTable.PSVersion.Major -eq 5 -and $PSVersionTable.PSVersion.Minor -lt 1)) {
-    Write-Host "错误：本脚本需要PowerShell 5.1或更高版本。" -ForegroundColor Red
-    Read-Host "按Enter退出"
-    exit 1
-}
-
 class NetworkConfig {
     [string] $BaseURL
     [string] $WlanAcName
@@ -247,7 +241,7 @@ class AuthenticationClient {
     }
 
     [void] Run() {
-        Write-Host "`n===== 新乡工程学院校园网自动登录脚本 =====" -ForegroundColor Cyan
+        Write-Host "`n===== 新乡工程学院校园网登录脚本 =====" -ForegroundColor Cyan
         $savedConfig = $this.ConfigMgr.LoadConfig()
         if ($savedConfig) {
             Write-Host "`n已找到保存的配置，自动登录中..." -ForegroundColor Cyan
@@ -269,15 +263,14 @@ class AuthenticationClient {
             Write-Host "自动获取成功！" -ForegroundColor Green
             $this.DisplayNetworkInfo()
         } else {
-            Write-Host "`n自动获取失败，请手动获取登录信息" -ForegroundColor Yellow
             Write-Host "`n请按以下步骤操作：" -ForegroundColor White
-            Write-Host "1. 断开当前Wi-Fi重新连接" -ForegroundColor Gray
+            Write-Host "1. 连接校园网（如果已经登录登录2.2.2.2来退出）" -ForegroundColor Gray
             Write-Host "2. 打开浏览器访问任意网站（如 www.qq.com）" -ForegroundColor Gray
             Write-Host "3. 浏览器会自动重定向到登录页面" -ForegroundColor Gray
-            Write-Host "4. 复制浏览器地址栏中的完整URL地址" -ForegroundColor Gray
+            Write-Host "4. 复制浏览器地址栏中的完整URL地址（例：172.xxxxxxxx这个网站链接）" -ForegroundColor Gray
             Write-Host "5. 将URL粘贴到下面" -ForegroundColor Gray
 
-            $manualUrl = Read-Host "`n请粘贴重定向URL"
+            $manualUrl = Read-Host "`n请粘贴校园网登录链接："
             while ([string]::IsNullOrWhiteSpace($manualUrl) -or $manualUrl -notmatch '^http://' -or $manualUrl -notmatch '/portal\.do') {
                 Write-Host "URL格式不正确，请输入包含 /portal.do 的重定向URL" -ForegroundColor Red
                 $manualUrl = Read-Host "请重新粘贴重定向URL"
