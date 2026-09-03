@@ -3,6 +3,8 @@
 
 py程序说明在 py模拟浏览器 分支，程序可在发布页直接下载
 
+根据本pwsh脚本制作的rust应用：https://github.com/Thatgfsj/XXGCXY-CampusNet-AutoLogin
+
 ## 📌 重要说明
 - 本脚本仅适用于**新乡工程学院**校园网，其他学校需自行适配修改
 - B站使用教程：https://www.bilibili.com/opus/1174460821448687621
